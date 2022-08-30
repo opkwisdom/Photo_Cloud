@@ -37,6 +37,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    #add app
+    'share',
+    'landing',
+
+    #add pip
+    'PIL',
+    'googlemaps',
+    'pyheif',
 ]
 
 MIDDLEWARE = [
