@@ -4,47 +4,52 @@ from django.utils import timezone
 from hashlib import sha256
 #from apps import pilling
 from PIL import Image
+import os
+from random import random
 import pillow_heif
 import googlemaps
 
 #now testing
 
+def set_path(instance):
+    return "%s"%instance.album_id
+
 class ShareFile(models.Model):
 
     #__new__
     author = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.DO_NOTHING)
-    room = models.ForeignKey(models.ShareAlbum,on_delte=models.CASCADE)
+    album_id = models.ForeignKey(models.ShareAlbum,on_delte=models.CASCADE)
     name = models.CharField(max_length=40)
     upload_date = models.DateTimeField(default=timezone.now)
 
+    def set_upload(self):
+        return "share/"+self.album_id
+
+    class Meta:
+        abstract = True
+
 
 class Photo(ShareFile):
-    # __new__
     # field (author room name upload_date gps)
+    photo = models.ImageField(upload_to = "share/"+set_path+"/photo/")
     gps = models.CharField()
-
-    #init def
-    def __init__(self):
-        #field init & img init
-        photo = models.ImageField(upload_to="share/"+self.room.locate+"/image/")
-        img_p = Image(photo)
-        self.name = img_p.filename
-        self.gps = img_p._getexif()
-
 
     pass
 class File(ShareFile):
-    def __init__(self):
-        file=models.FileField(upload_to="share/"+self.room.locate+"/file/")
-    pass
+    file=models.FileField(upload_to="share/"+set_path+"/photo/")
+    ext = models.CharField(max_length=8)
+
+
+
+
+
 
 class Video(ShareFile):
-    def __init__(self):
-        video=models.FileField(upload_to="share/"+self.room.locate+"/video")
-    pass
+    video = models.FileField(upload_to = "share/"+set_path+"/video")
 
 class ShareAlbum(models.Model):
-    pass
+    album_id = models.CharField(max_length=20)
+
 
 
 

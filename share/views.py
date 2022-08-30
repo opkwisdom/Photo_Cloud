@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic.edit import FormView
 from .forms import PhotoForm
-
+from .models import Photo, Video, File
 class FileFieldFormView(FormView):
     form_class = PhotoForm
     template_name = 'upload.html'  # Replace with your template.
@@ -13,6 +13,7 @@ class FileFieldFormView(FormView):
         files = request.FILES.getlist('file_field')
         if form.is_valid():
             for f in files:
+
                 ...  # Do something with each file.
             return self.form_valid(form)
         else:
