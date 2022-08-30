@@ -4,7 +4,7 @@ from django.utils import timezone
 from hashlib import sha256
 #from apps import pilling
 from PIL import Image
-import pyheif
+import pillow_heif
 import googlemaps
 
 #now testing
