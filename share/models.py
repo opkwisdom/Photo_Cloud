@@ -29,10 +29,8 @@ class ShareFile(models.Model):
 class Photo(ShareFile):
     # field (author room name upload_date gps)
     photo = models.ImageField(upload_to="share/"+set_path+"/photo/")
-    gps_addr = models.CharField(max_length=20)
-
-
-    pass
+    gps_addr = models.CharField(max_length=20, blank=True)
+    pixel = models.CharField(max_length=20)
 
 
 class File(ShareFile):
@@ -42,11 +40,12 @@ class File(ShareFile):
 
 class Video(ShareFile):
     video = models.FileField(upload_to="share/"+set_path+"/video")
+    gps_addr = models.CharField(max_length=20, blank=True)
 
 
 class ShareAlbum(models.Model):
     album_admin = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    album_id = models.CharField(max_length=20)
+    share_id = models.CharField(max_length=20)
     storage = models.IntegerField(max_length=10)
 
 
