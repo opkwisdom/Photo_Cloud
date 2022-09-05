@@ -1,12 +1,6 @@
 from django.db import models
 from django.conf import settings
 from django.utils import timezone
-from hashlib import sha256
-from PIL import Image
-import os
-from random import random
-import pillow_heif
-import googlemaps
 
 # now testing
 
@@ -31,6 +25,7 @@ class Photo(ShareFile):
     photo = models.ImageField(upload_to="share/"+set_path+"/photo/")
     gps_addr = models.CharField(max_length=20, blank=True)
     pixel = models.CharField(max_length=20)
+    ocr_tag = models.SlugField(blank=True)
 
 
 class File(ShareFile):
