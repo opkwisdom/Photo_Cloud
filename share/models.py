@@ -3,15 +3,15 @@ from django.conf import settings
 from django.utils import timezone
 
 def set_path(instance):
-    return "%s" %(instance.album_id)
+    return "%s" %(instance.share_id)
 
 
 class ShareFile(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.DO_NOTHING)
-    room = models.ForeignKey(models.ShareAlbum, on_delte=models.CASCADE)
+    room = models.ForeignKey('ShareAlbum', on_delete=models.CASCADE)
     name = models.CharField(max_length=40)
     upload_date = models.DateTimeField(default=timezone.now)
-    file_size = models.IntegerField(max_length=10)
+    file_size = models.IntegerField()
 
     class Meta:
         abstract = True
@@ -35,7 +35,7 @@ class Video(ShareFile):
 class ShareAlbum(models.Model):
     album_admin = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     share_id = models.CharField(max_length=20)
-    storage = models.IntegerField(max_length=10)
+    storage = models.IntegerField()
 
 
 
