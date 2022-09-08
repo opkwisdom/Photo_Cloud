@@ -25,7 +25,7 @@ class Photo(ShareFile):
     photo = models.ImageField(upload_to="share/"+set_path+"/photo/")
     gps_addr = models.CharField(max_length=20, blank=True)
     pixel = models.CharField(max_length=20)
-    ocr_tag = models.SlugField(blank=True)
+    tag = models.SlugField(blank=True)
 
 
 class File(ShareFile):
