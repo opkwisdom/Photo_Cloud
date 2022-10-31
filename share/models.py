@@ -9,36 +9,43 @@ def set_path(instance):
     return "%s"%instance.album_id
 
 
-class ShareFile(models.Model):
+class Photo(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING)
     album_id = models.ForeignKey(models.ShareAlbum, on_delte=models.CASCADE)
     name = models.CharField(max_length=40)
     upload_date = models.DateTimeField(default=timezone.now)
-    file_size = models.IntegerField(max_length=10)
-
-    class Meta:
-        abstract = True
-
-
-class Photo(ShareFile):
     # field (author room name upload_date gps)
     photo = models.ImageField(upload_to="share/"+set_path+"/photo/")
     gps_addr = models.CharField(max_length=20, blank=True)
-    pixel = models.CharField(max_length=20)
     tag = models.SlugField(blank=True)
 
 
-class File(ShareFile):
+class File(models.Model):
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING)
+    album_id = models.ForeignKey(models.ShareAlbum, on_delte=models.CASCADE)
+    name = models.CharField(max_length=40)
+    upload_date = models.DateTimeField(default=timezone.now)\
+
     file = models.FileField(upload_to="share/"+set_path+"/photo/")
     ext = models.CharField(max_length=8)
 
 
-class Video(ShareFile):
+class Video(models.Model):
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING)
+    album_id = models.ForeignKey(models.ShareAlbum, on_delte=models.CASCADE)
+    name = models.CharField(max_length=40)
+    upload_date = models.DateTimeField(default=timezone.now)
+
     video = models.FileField(upload_to="share/"+set_path+"/video")
     gps_addr = models.CharField(max_length=20, blank=True)
 
 
 class ShareAlbum(models.Model):
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING)
+    album_id = models.ForeignKey(models.ShareAlbum, on_delte=models.CASCADE)
+    name = models.CharField(max_length=40)
+    upload_date = models.DateTimeField(default=timezone.now)
+
     album_admin = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     share_id = models.CharField(max_length=20)
     storage = models.IntegerField(max_length=10)
