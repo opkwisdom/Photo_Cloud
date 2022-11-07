@@ -4,6 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, FormView
 from .forms import FileForm, PhotoForm, VideoForm
 from .models import Photo, Video, File, ShareAlbum
+from PIL import Image
 import os
 class FileFieldFormView(LoginRequiredMixin, FormView):
     form_class = FileForm
@@ -15,6 +16,7 @@ class FileFieldFormView(LoginRequiredMixin, FormView):
         files = request.FILES.getlist('file_field')
         if form.is_valid():
             for f in files:
+                pf = Image.open(f.)
 
 
                 ...  # Do something with each file.
